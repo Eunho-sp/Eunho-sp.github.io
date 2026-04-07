@@ -8,9 +8,9 @@ tags: ["blog", "nextjs", "github-pages"]
 
 ## 블로그를 시작합니다
 
-안녕하세요, **은호(Eunho Park)**입니다.
+안녕하세요, **박은호**입니다.
 
-전북대학교에서 CS & AI를 전공하고 있으며, 보안과 알고리즘을 공부하고 있습니다. 이 블로그에서는 개발, CTF, 버그바운티, 논문 리뷰 등 다양한 주제를 다룰 예정입니다.
+전북대학교에서 CS & AI를 전공하고 있으며, 보안과 알고리즘, 개발을 공부하고 있습니다. 이 블로그에서는 개발, CTF, 버그바운티, 논문 리뷰 등 다양한 주제를 다룰 예정입니다.
 
 ### 기술 스택
 
@@ -20,25 +20,5 @@ tags: ["blog", "nextjs", "github-pages"]
 - **TypeScript**
 - **Tailwind CSS v4**
 - **GitHub Pages** 정적 배포
-
-### 코드 하이라이팅 예시
-
-```python
-def hello():
-    print("Hello, World!")
-
-if __name__ == "__main__":
-    hello()
-```
-
-```cpp
-#include <iostream>
-using namespace std;
-
-int main() {
-    cout << "Hello, World!" << endl;
-    return 0;
-}
-```
 
 앞으로 다양한 글을 작성할 예정이니 많은 관심 부탁드립니다!
