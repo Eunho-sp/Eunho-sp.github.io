@@ -17,9 +17,9 @@ export default function BlogPage() {
       <Header />
       <div className="flex flex-1">
         <Sidebar />
-        <main className="flex-1 lg:ml-72">
-          <div className="max-w-3xl mx-auto px-4 py-12">
-            <h1 className="text-3xl font-bold text-white mb-8">Blog</h1>
+        <main className="flex-1 flex flex-col lg:ml-72">
+          <div className="flex-1 max-w-3xl mx-auto px-4 py-12">
+            <h1 className="text-3xl font-bold text-foreground mb-8">Blog</h1>
             <Suspense fallback={null}>
               <BlogContent posts={allPosts} />
             </Suspense>

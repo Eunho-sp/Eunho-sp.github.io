@@ -147,7 +147,7 @@ npx serve out
 ## 만든 과정
 
 ```
-eunho          →  요구사항 정의, 설계,코드 작성, 리뷰
+silverpumkin          →  요구사항 정의, 설계,코드 작성, 리뷰
 Claude Code          →  코드 작성, 빌드, 디버깅
 ```
 

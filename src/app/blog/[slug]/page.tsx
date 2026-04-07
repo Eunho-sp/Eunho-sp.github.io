@@ -4,7 +4,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
-import { getCategoryColor } from "@/lib/constants";
+import { getCategoryColor, SITE } from "@/lib/constants";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -20,6 +20,12 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
     return {
       title: meta.title,
       description: meta.description,
+      openGraph: {
+        title: meta.title,
+        description: meta.description,
+        url: `${SITE.url}/blog/${slug}`,
+        type: "article",
+      },
     };
   });
 }
@@ -53,7 +59,7 @@ export default async function PostPage({
             {/* Back link */}
             <Link
               href="/blog"
-              className="inline-flex items-center text-sm text-muted hover:text-primary transition-colors mb-8"
+              className="inline-flex items-center text-sm text-blue-500 hover:text-blue-700 transition-colors mb-8"
             >
               &larr; Back to blog
             </Link>
@@ -72,7 +78,7 @@ export default async function PostPage({
                 </span>
                 <time className="text-sm text-muted">{meta.date}</time>
               </div>
-              <h1 className="text-3xl font-bold text-white">{meta.title}</h1>
+              <h1 className="text-3xl font-bold text-foreground">{meta.title}</h1>
               {meta.description && (
                 <p className="text-muted mt-3">{meta.description}</p>
               )}
@@ -91,7 +97,7 @@ export default async function PostPage({
             </header>
 
             {/* Post content */}
-            <div className="prose prose-invert max-w-none">{mdxContent}</div>
+            <div className="prose dark:prose-invert max-w-none">{mdxContent}</div>
           </article>
           <Footer />
         </main>

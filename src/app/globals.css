@@ -1,14 +1,15 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: #0d1117;
-  --color-foreground: #e6edf3;
+@theme {
+  --color-background: #040B14;
+  --color-foreground: #D9D9D9;
   --color-primary: #3182F6;
-  --color-secondary: #4E5968;
-  --color-surface: #161b22;
-  --color-border: #30363d;
-  --color-muted: #8b949e;
+  --color-secondary: #FC4E00;
+  --color-surface: #07111F;
+  --color-border: #1E2A3A;
+  --color-muted: #7A8494;
 
   --color-cat-dev: #3182F6;
   --color-cat-ctf: #F04452;
@@ -20,6 +21,13 @@
   --font-sans: "Pretendard Variable", "Pretendard", -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+
+  --animate-blink: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Fonts loaded via layout.tsx <link> tags to avoid @import ordering issues */
@@ -27,6 +35,57 @@
 html {
   color-scheme: dark;
 }
+
+html.light {
+  --color-background: #F5F5F7;
+  --color-foreground: #000000;
+  --color-surface: #FFFFFF;
+  --color-surface-sidebar: #FFF7ED;
+  --color-border: #E5E5E5;
+  --color-muted: #4A4A4A;
+  --color-primary: #2563EB;
+  color-scheme: light;
+}
+
+html.light .prose {
+  --tw-prose-headings: #1D1D1F;
+  --tw-prose-bold: #1D1D1F;
+  --tw-prose-pre-bg: #F5F5F7;
+}
+
+html.light aside {
+  background-color: var(--color-surface-sidebar) !important;
+  border-color: transparent !important;
+}
+
+html.light .hljs {
+  background: #F1F5F9 !important;
+  color: #383a42;
+}
+html.light .hljs-keyword,
+html.light .hljs-selector-tag,
+html.light .hljs-literal,
+html.light .hljs-section,
+html.light .hljs-link { color: #a626a4; }
+html.light .hljs-string,
+html.light .hljs-title,
+html.light .hljs-name,
+html.light .hljs-type,
+html.light .hljs-attribute,
+html.light .hljs-symbol,
+html.light .hljs-bullet,
+html.light .hljs-addition,
+html.light .hljs-variable,
+html.light .hljs-template-tag,
+html.light .hljs-template-variable { color: #50a14f; }
+html.light .hljs-comment,
+html.light .hljs-quote,
+html.light .hljs-deletion,
+html.light .hljs-meta { color: #a0a1a7; font-style: italic; }
+html.light .hljs-number { color: #986801; }
+html.light .hljs-built_in { color: #c18401; }
+html.light .hljs-function { color: #4078f2; }
+html.light .hljs-params { color: #383a42; }
 
 body {
   background: var(--color-background);

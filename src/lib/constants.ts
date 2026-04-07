@@ -3,9 +3,10 @@ import { Category } from "./types";
 export const SITE = {
   title: "Eunho's Blog",
   description: "CS & AI 전공자 은호의 보안/개발 블로그",
-  author: "은호 (Eunho Park)",
-  bio: "전북대 CS & AI / 보안 및 알고리즘 공부 중",
+  author: "silverpumkin",
+  bio: "CS & AI 학부 / 보안 개발 알고리즘 공부 중",
   github: "https://github.com/Eunho-sp",
+  url: "https://eunho-sp.github.io",
 };
 
 export const CATEGORIES: { label: Category; color: string }[] = [

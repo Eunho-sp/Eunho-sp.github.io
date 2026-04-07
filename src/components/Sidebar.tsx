@@ -1,15 +1,22 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SITE, CATEGORIES } from "@/lib/constants";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Sidebar() {
   return (
-    <aside className="hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-surface border-r border-border p-6 overflow-y-auto">
+    <aside className="hidden lg:flex lg:flex-col lg:justify-between lg:w-72 lg:fixed lg:inset-y-0 bg-surface border-r border-border p-6 overflow-y-auto">
+      <div>
       {/* Profile */}
       <div className="mb-8">
-        <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center text-primary text-2xl font-bold mb-4">
-          EP
-        </div>
-        <h1 className="text-lg font-bold text-white">{SITE.author}</h1>
+        <Image
+          src="/profile.jpg"
+          alt={SITE.author}
+          width={80}
+          height={80}
+          className="w-20 h-20 rounded-full object-cover mb-4"
+        />
+        <h1 className="text-lg font-bold text-foreground">{SITE.author}</h1>
         <p className="text-sm text-muted mt-1">{SITE.bio}</p>
       </div>
 
@@ -67,12 +74,11 @@ export default function Sidebar() {
           ))}
         </ul>
       </div>
+      </div>
 
-      {/* Footer in sidebar */}
-      <div className="mt-auto pt-6 border-t border-border">
-        <p className="text-xs text-muted">
-          &copy; {new Date().getFullYear()} {SITE.author}
-        </p>
+      {/* Theme Toggle */}
+      <div className="pt-4 border-t border-border">
+        <ThemeToggle />
       </div>
     </aside>
   );

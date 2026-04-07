@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { SITE, CATEGORIES } from "@/lib/constants";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -13,11 +14,13 @@ export default function Header() {
         <Link href="/" className="font-bold text-primary">
           {SITE.title}
         </Link>
-        <button
-          onClick={() => setOpen(!open)}
-          className="p-2 text-muted hover:text-foreground"
-          aria-label="Toggle menu"
-        >
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <button
+            onClick={() => setOpen(!open)}
+            className="p-2 text-muted hover:text-foreground"
+            aria-label="Toggle menu"
+          >
           <svg
             className="w-5 h-5"
             fill="none"
@@ -40,13 +43,14 @@ export default function Header() {
               />
             )}
           </svg>
-        </button>
+          </button>
+        </div>
       </div>
 
       {open && (
         <nav className="px-4 pb-4 border-t border-border bg-surface">
           <div className="py-3">
-            <p className="text-sm font-bold text-white">{SITE.author}</p>
+            <p className="text-sm font-bold text-foreground">{SITE.author}</p>
             <p className="text-xs text-muted">{SITE.bio}</p>
           </div>
           <ul className="space-y-1">
