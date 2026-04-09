@@ -18,6 +18,15 @@ export const CATEGORIES: { label: Category; color: string }[] = [
   { label: "공모전/자격증", color: "#EC4899" },
 ];
 
+export const FOLDER_TO_CATEGORY: Record<string, Category> = {
+  dev: "개발",
+  "ctf-wargame": "CTF/Wargame",
+  bugbounty: "BugBounty",
+  "blog-techdoc": "블로그/기술문서",
+  "paper-conference": "논문/컨퍼런스",
+  "contest-cert": "공모전/자격증",
+};
+
 export function getCategoryColor(category: Category): string {
   return CATEGORIES.find((c) => c.label === category)?.color ?? "#4E5968";
 }

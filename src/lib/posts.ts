@@ -2,17 +2,35 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { PostMeta, Category } from "./types";
+import { FOLDER_TO_CATEGORY } from "./constants";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
+function getAllMdFiles(dir: string): string[] {
+  if (!fs.existsSync(dir)) return [];
+  const results: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...getAllMdFiles(full));
+    } else if (entry.name.endsWith(".md")) {
+      results.push(full);
+    }
+  }
+  return results;
+}
+
+function categoryFromFolder(slug: string): Category | undefined {
+  const firstSegment = slug.split("/")[0];
+  return FOLDER_TO_CATEGORY[firstSegment];
+}
+
 export function getAllPosts(): PostMeta[] {
-  if (!fs.existsSync(postsDirectory)) return [];
+  const files = getAllMdFiles(postsDirectory);
 
-  const files = fs.readdirSync(postsDirectory).filter((f) => f.endsWith(".md"));
-
-  const posts: PostMeta[] = files.map((filename) => {
-    const slug = filename.replace(/\.md$/, "");
-    const filePath = path.join(postsDirectory, filename);
+  const posts: PostMeta[] = files.map((filePath) => {
+    const relative = path.relative(postsDirectory, filePath).replace(/\\/g, "/");
+    const slug = relative.replace(/\.md$/, "");
     const fileContent = fs.readFileSync(filePath, "utf-8");
     const { data } = matter(fileContent);
 
@@ -20,14 +38,16 @@ export function getAllPosts(): PostMeta[] {
       slug,
       title: data.title ?? slug,
       date: data.date ?? "1970-01-01",
-      category: data.category ?? "개발",
+      category: data.category ?? categoryFromFolder(slug) ?? "개발",
       description: data.description ?? "",
       tags: data.tags ?? [],
     };
   });
 
   return posts.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) =>
+      new Date(b.date).getTime() - new Date(a.date).getTime() ||
+      b.slug.localeCompare(a.slug)
   );
 }
 
@@ -44,7 +64,7 @@ export function getPostBySlug(slug: string): {
       slug,
       title: data.title ?? slug,
       date: data.date ?? "1970-01-01",
-      category: data.category ?? "개발",
+      category: data.category ?? categoryFromFolder(slug) ?? "개발",
       description: data.description ?? "",
       tags: data.tags ?? [],
     },

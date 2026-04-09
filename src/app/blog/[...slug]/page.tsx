@@ -11,19 +11,20 @@ import Footer from "@/components/Footer";
 
 export function generateStaticParams() {
   const posts = getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return posts.map((post) => ({ slug: post.slug.split("/") }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }) {
   return params.then(({ slug }) => {
-    const { meta } = getPostBySlug(slug);
+    const slugPath = slug.join("/");
+    const { meta } = getPostBySlug(slugPath);
     return {
       title: meta.title,
       description: meta.description,
       openGraph: {
         title: meta.title,
         description: meta.description,
-        url: `${SITE.url}/blog/${slug}`,
+        url: `${SITE.url}/blog/${slugPath}`,
         type: "article",
       },
     };
@@ -33,10 +34,11 @@ export function generateMetadata({ params }: { params: Promise<{ slug: string }>
 export default async function PostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string[] }>;
 }) {
   const { slug } = await params;
-  const { meta, content } = getPostBySlug(slug);
+  const slugPath = slug.join("/");
+  const { meta, content } = getPostBySlug(slugPath);
   const catColor = getCategoryColor(meta.category);
 
   const { content: mdxContent } = await compileMDX({
@@ -54,8 +56,8 @@ export default async function PostPage({
       <Header />
       <div className="flex flex-1">
         <Sidebar />
-        <main className="flex-1 lg:ml-72">
-          <article className="max-w-3xl mx-auto px-4 py-12">
+        <main className="flex-1 flex flex-col lg:ml-72">
+          <article className="flex-1 max-w-3xl mx-auto px-4 py-12 w-full">
             {/* Back link */}
             <Link
               href="/blog"
